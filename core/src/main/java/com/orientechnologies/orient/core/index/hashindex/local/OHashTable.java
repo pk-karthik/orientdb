@@ -25,6 +25,7 @@ import com.orientechnologies.orient.core.metadata.schema.OType;
 import com.orientechnologies.orient.core.storage.impl.local.OAbstractPaginatedStorage;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+import java.io.IOException;
 import java.util.Comparator;
 
 /**
@@ -74,6 +75,8 @@ public interface OHashTable<K, V> {
   void delete();
 
   void flush();
+
+  void acquireAtomicExclusiveLock() throws IOException;
 
   public static final class BucketPath {
     public final BucketPath parent;

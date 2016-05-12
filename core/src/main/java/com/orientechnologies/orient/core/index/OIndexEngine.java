@@ -25,6 +25,7 @@ import com.orientechnologies.orient.core.db.record.OIdentifiable;
 import com.orientechnologies.orient.core.metadata.schema.OType;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -85,6 +86,8 @@ public interface OIndexEngine {
   int getVersion();
 
   String getName();
+
+  void acquireAtomicExclusiveLock() throws IOException;
 
   interface ValuesTransformer {
     Collection<OIdentifiable> transformFromValue(Object value);

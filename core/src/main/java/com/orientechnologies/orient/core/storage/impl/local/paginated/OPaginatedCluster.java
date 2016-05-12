@@ -2219,4 +2219,9 @@ public class OPaginatedCluster extends ODurableComponent implements OCluster {
   public String toString() {
     return "plocal cluster: " + getName();
   }
+
+  @Override
+  public void acquireAtomicExclusiveLock() throws IOException {
+    atomicOperationsManager.acquireExclusiveLockTillOperationComplete(this);
+  }
 }

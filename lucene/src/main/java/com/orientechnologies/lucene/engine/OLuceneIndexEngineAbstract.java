@@ -65,7 +65,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static com.orientechnologies.lucene.analyzer.OLuceneAnalyzerFactory.AnalyzerKind.INDEX;
 import static com.orientechnologies.lucene.analyzer.OLuceneAnalyzerFactory.AnalyzerKind.QUERY;
 
-public abstract class OLuceneIndexEngineAbstract<V> extends OSharedResourceAdaptiveExternal
+public abstract class GOLuceneIndexEngineAbstract<V> extends OSharedResourceAdaptiveExternal
     implements OLuceneIndexEngine, OOrientListener {
 
   public static final String RID    = "RID";
@@ -503,4 +503,9 @@ public abstract class OLuceneIndexEngineAbstract<V> extends OSharedResourceAdapt
       OLogManager.instance().error(this, "Error on releasing Lucene index", e);
     }
   }
+
+  public void acquireAtomicExclusiveLock() throws IOException {
+    //TODO To get eventual lock fo the tx
+  }
+
 }

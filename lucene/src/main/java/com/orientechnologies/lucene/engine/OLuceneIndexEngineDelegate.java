@@ -192,6 +192,11 @@ public class OLuceneIndexEngineDelegate implements OLuceneIndexEngine, OFreezabl
   }
 
   @Override
+  public void acquireAtomicExclusiveLock() throws IOException {
+    this.acquireAtomicExclusiveLock();
+  }
+
+  @Override
   public void init(String indexName, String indexType, OIndexDefinition indexDefinition, boolean isAutomatic, ODocument metadata) {
     if (delegate == null) {
       if (FULLTEXT.name().equalsIgnoreCase(indexType)) {
