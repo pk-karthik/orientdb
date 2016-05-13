@@ -1288,7 +1288,6 @@ public class OStorageRemote extends OStorageAbstract implements OStorageProxy {
     networkOperation(new OStorageRemoteOperation<Void>() {
       @Override
       public Void execute(OChannelBinaryAsynchClient network) throws IOException {
-        final List<ORecordOperation> committedEntries = new ArrayList<ORecordOperation>();
         try {
           getCurrentSession().commandExecuting = true;
 
@@ -1340,7 +1339,6 @@ public class OStorageRemote extends OStorageAbstract implements OStorageProxy {
             endResponse(network);
           }
 
-          committedEntries.clear();
           // SET ALL THE RECORDS AS UNDIRTY
           for (ORecordOperation txEntry : iTx.getAllRecordEntries())
             ORecordInternal.unsetDirty(txEntry.getRecord());

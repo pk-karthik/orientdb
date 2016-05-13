@@ -65,7 +65,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static com.orientechnologies.lucene.analyzer.OLuceneAnalyzerFactory.AnalyzerKind.INDEX;
 import static com.orientechnologies.lucene.analyzer.OLuceneAnalyzerFactory.AnalyzerKind.QUERY;
 
-public abstract class GOLuceneIndexEngineAbstract<V> extends OSharedResourceAdaptiveExternal
+public abstract class OLuceneIndexEngineAbstract<V> extends OSharedResourceAdaptiveExternal
     implements OLuceneIndexEngine, OOrientListener {
 
   public static final String RID    = "RID";
