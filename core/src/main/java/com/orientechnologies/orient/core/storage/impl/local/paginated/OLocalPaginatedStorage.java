@@ -46,6 +46,7 @@ import com.orientechnologies.orient.core.storage.impl.local.OStorageConfiguratio
 import com.orientechnologies.orient.core.storage.impl.local.OStorageVariableParser;
 import com.orientechnologies.orient.core.storage.impl.local.paginated.wal.ODiskWriteAheadLog;
 import com.orientechnologies.orient.core.storage.impl.local.paginated.wal.OLogSequenceNumber;
+import com.orientechnologies.orient.core.storage.impl.local.paginated.wal.OMemoryWriteAheadLog;
 import com.orientechnologies.orient.core.storage.impl.local.paginated.wal.OWriteAheadLog;
 
 import java.io.*;
@@ -446,7 +447,7 @@ public class OLocalPaginatedStorage extends OAbstractPaginatedStorage implements
       writeAheadLog = diskWriteAheadLog;
       writeAheadLog.addFullCheckpointListener(this);
     } else
-      writeAheadLog = null;
+      writeAheadLog = new OMemoryWriteAheadLog();
 
     long diskCacheSize = OGlobalConfiguration.DISK_CACHE_SIZE.getValueAsLong() * 1024 * 1024;
     long writeCacheSize = (long) Math
