@@ -46,6 +46,7 @@ import com.orientechnologies.orient.core.metadata.schema.OClass;
 import com.orientechnologies.orient.core.metadata.schema.OProperty;
 import com.orientechnologies.orient.core.metadata.schema.OType;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.ORecordInternal;
 import com.orientechnologies.orient.core.record.ORecordStringable;
 import com.orientechnologies.orient.core.record.impl.*;
@@ -241,10 +242,10 @@ public class ORecordSerializerJSON extends ORecordSerializerStringAbstract {
           } else if (fieldName.equals("value") && !(iRecord instanceof ODocument)) {
             // RECORD VALUE(S)
             if ("null".equals(fieldValue))
-              iRecord.fromStream(OCommonConst.EMPTY_BYTE_ARRAY);
+              ((ORecordAbstract)iRecord).fromStream(OCommonConst.EMPTY_BYTE_ARRAY);
             else if (iRecord instanceof OBlob) {
               // BYTES
-              iRecord.fromStream(OBase64Utils.decode(fieldValueAsString));
+              ((ORecordAbstract) iRecord).fromStream(OBase64Utils.decode(fieldValueAsString));
             } else if (iRecord instanceof ORecordStringable) {
               ((ORecordStringable) iRecord).value(fieldValueAsString);
             } else
@@ -350,7 +351,7 @@ public class ORecordSerializerJSON extends ORecordSerializerStringAbstract {
       } else if (iRecord instanceof OBlob) {
         // BYTES
         final OBlob record = (OBlob) iRecord;
-        json.writeAttribute(settings.indentLevel, true, "value", OBase64Utils.encodeBytes(record.toStream()));
+        json.writeAttribute(settings.indentLevel, true, "value", OBase64Utils.encodeBytes(((ORecordAbstract)record).toStream()));
       } else
 
         throw new OSerializationException(

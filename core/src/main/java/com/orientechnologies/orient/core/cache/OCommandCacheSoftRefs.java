@@ -30,6 +30,7 @@ import com.orientechnologies.orient.core.config.OGlobalConfiguration;
 import com.orientechnologies.orient.core.exception.OConfigurationException;
 import com.orientechnologies.orient.core.metadata.security.OSecurityUser;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.sql.query.OResultSet;
 import com.orientechnologies.orient.core.storage.OStorage;
@@ -249,12 +250,12 @@ public class OCommandCacheSoftRefs implements OCommandCache {
         int resultsetSize = 1;
 
         if (result.result instanceof ORecord)
-          ((ORecord) result.result).toStream();
+          ((ORecordAbstract) result.result).toStream();
         else if (OMultiValue.isMultiValue(result.result)) {
           resultsetSize = OMultiValue.getSize(result.result);
           for (Object rc : OMultiValue.getMultiValueIterable(result.result)) {
             if (rc != null && rc instanceof ORecord) {
-              ((ORecord) rc).toStream();
+              ((ORecordAbstract) rc).toStream();
             }
           }
         }

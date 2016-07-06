@@ -61,6 +61,7 @@ import com.orientechnologies.orient.core.metadata.sequence.OSequenceTrigger;
 import com.orientechnologies.orient.core.query.OQuery;
 import com.orientechnologies.orient.core.query.live.OLiveQueryHook;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.ORecordInternal;
 import com.orientechnologies.orient.core.record.ORecordVersionHelper;
 import com.orientechnologies.orient.core.record.impl.OBlob;
@@ -1677,10 +1678,10 @@ public class ODatabaseDocumentTx extends OListenerManger<ODatabaseListener> impl
   public <RET extends ORecord> RET reload(ORecord record, String fetchPlan, boolean ignoreCache, boolean force) {
     checkIfActive();
 
-    final ORecord loadedRecord = currentTx.reloadRecord(record.getIdentity(), record, fetchPlan, ignoreCache, force);
+    final ORecordAbstract loadedRecord = (ORecordAbstract) currentTx.reloadRecord(record.getIdentity(), record, fetchPlan, ignoreCache, force);
 
     if (loadedRecord != null && record != loadedRecord) {
-      record.fromStream(loadedRecord.toStream());
+      ((ORecordAbstract) record).fromStream(loadedRecord.toStream());
       ORecordInternal.setVersion(record, loadedRecord.getVersion());
     } else if (loadedRecord == null) {
       throw new ORecordNotFoundException(record.getIdentity());
@@ -1841,7 +1842,7 @@ public class ODatabaseDocumentTx extends OListenerManger<ODatabaseListener> impl
 
       if (record != null) {
         if (iRecord != null) {
-          iRecord.fromStream(record.toStream());
+          ((ORecordAbstract)iRecord).fromStream(((ORecordAbstract)record).toStream());
           ORecordInternal.setVersion(iRecord, record.getVersion());
           record = iRecord;
         }
@@ -1903,7 +1904,7 @@ public class ODatabaseDocumentTx extends OListenerManger<ODatabaseListener> impl
       if (callbackHooks(ORecordHook.TYPE.BEFORE_READ, iRecord) == ORecordHook.RESULT.SKIP)
         return null;
 
-      iRecord.fromStream(recordBuffer.buffer);
+      ((ORecordAbstract) iRecord).fromStream(recordBuffer.buffer);
 
       callbackHooks(ORecordHook.TYPE.AFTER_READ, iRecord);
 
@@ -2043,7 +2044,7 @@ public class ODatabaseDocumentTx extends OListenerManger<ODatabaseListener> impl
           checkSecurity(ORule.ResourceGeneric.CLUSTER, ORole.PERMISSION_UPDATE, clusterName);
           triggerType = ORecordHook.TYPE.BEFORE_UPDATE;
         }
-        stream = record.toStream();
+        stream = ((ORecordAbstract) record).toStream();
 
         final ORecordHook.RESULT hookResult = callbackHooks(triggerType, record);
 
@@ -3192,7 +3193,7 @@ public class ODatabaseDocumentTx extends OListenerManger<ODatabaseListener> impl
     ORecordSerializationContext.pushContext();
     ORecordInternal.unsetDirty(record);
     record.setDirty();
-    return record.toStream();
+    return ((ORecordAbstract) record).toStream();
   }
 
   private void init() {

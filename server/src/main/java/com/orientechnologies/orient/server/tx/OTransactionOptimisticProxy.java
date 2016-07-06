@@ -30,6 +30,7 @@ import com.orientechnologies.orient.core.id.ORID;
 import com.orientechnologies.orient.core.id.ORecordId;
 import com.orientechnologies.orient.core.index.OCompositeKey;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.ORecordInternal;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.serialization.serializer.OStringSerializerHelper;
@@ -146,7 +147,7 @@ public class OTransactionOptimisticProxy extends OTransactionOptimistic {
           ORecordInternal.setContentChanged(record, contentChanged);
 
         } else {
-          record.fromStream(entry.getValue());
+          ((ORecordAbstract) record).fromStream(entry.getValue());
           record.setDirty();
           ORecordInternal.setContentChanged(record, contentChanged);
         }

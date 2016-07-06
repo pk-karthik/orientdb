@@ -20,6 +20,7 @@
 package com.orientechnologies.orient.core.storage;
 
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.ORecordInternal;
 import com.orientechnologies.orient.core.type.OBuffer;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -52,7 +53,7 @@ public class ORawBuffer extends OBuffer {
    * @param iRecord
    */
   public ORawBuffer(final ORecord iRecord) {
-    this.buffer = iRecord.toStream();
+    this.buffer = ((ORecordAbstract) iRecord).toStream();
     this.version = iRecord.getVersion();
     this.recordType = ORecordInternal.getRecordType(iRecord);
   }

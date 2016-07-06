@@ -64,6 +64,7 @@ import com.orientechnologies.orient.core.metadata.security.OSecurityUser;
 import com.orientechnologies.orient.core.metadata.security.OToken;
 import com.orientechnologies.orient.core.query.OQueryAbstract;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.ORecordInternal;
 import com.orientechnologies.orient.core.record.ORecordVersionHelper;
 import com.orientechnologies.orient.core.record.impl.ODocument;
@@ -3645,7 +3646,7 @@ public abstract class OAbstractPaginatedStorage extends OStorageAbstract
         break;
 
       case ORecordOperation.CREATED: {
-        final byte[] stream = rec.toStream();
+        final byte[] stream = ((ORecordAbstract) rec).toStream();
         if (allocated != null) {
           final OPhysicalPosition ppos;
           final byte recordType = ORecordInternal.getRecordType(rec);
@@ -3666,7 +3667,7 @@ public abstract class OAbstractPaginatedStorage extends OStorageAbstract
       }
 
       case ORecordOperation.UPDATED: {
-        final byte[] stream = rec.toStream();
+        final byte[] stream = ((ORecordAbstract) rec).toStream();
 
         final OStorageOperationResult<Integer> updateRes = doUpdateRecord(rid, ORecordInternal.isContentChanged(rec), stream,
             rec.getVersion(), ORecordInternal.getRecordType(rec), null, cluster);

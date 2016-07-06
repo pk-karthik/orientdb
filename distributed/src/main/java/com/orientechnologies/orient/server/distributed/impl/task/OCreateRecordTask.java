@@ -28,6 +28,7 @@ import com.orientechnologies.orient.core.db.record.OPlaceholder;
 import com.orientechnologies.orient.core.id.ORID;
 import com.orientechnologies.orient.core.id.ORecordId;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.ORecordInternal;
 import com.orientechnologies.orient.core.record.ORecordVersionHelper;
 import com.orientechnologies.orient.core.record.impl.ODocument;
@@ -70,7 +71,7 @@ public class OCreateRecordTask extends OAbstractRecordReplicatedTask {
   }
 
   public OCreateRecordTask(final ORecord record) {
-    this((ORecordId) record.getIdentity(), record.toStream(), record.getVersion() - 1, ORecordInternal.getRecordType(record));
+    this((ORecordId) record.getIdentity(), ((ORecordAbstract)record).toStream(), record.getVersion() - 1, ORecordInternal.getRecordType(record));
 
     if (rid.getClusterId() == ORID.CLUSTER_ID_INVALID) {
       ODatabaseDocumentInternal db = ODatabaseRecordThreadLocal.INSTANCE.get();
@@ -269,7 +270,7 @@ public class OCreateRecordTask extends OAbstractRecordReplicatedTask {
             toUpdateRecord = toUpdateRid.getRecord();
 
           if (toUpdateRecord != null)
-            result = new OUpdateRecordTask(toUpdateRid, toUpdateRecord.toStream(), toUpdateRecord.getVersion(),
+            result = new OUpdateRecordTask(toUpdateRid, ((ORecordAbstract)toUpdateRecord).toStream(), toUpdateRecord.getVersion(),
                 ORecordInternal.getRecordType(toUpdateRecord));
         }
 

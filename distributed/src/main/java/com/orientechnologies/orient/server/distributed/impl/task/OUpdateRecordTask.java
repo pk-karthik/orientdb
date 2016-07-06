@@ -25,6 +25,7 @@ import com.orientechnologies.orient.core.db.ODatabaseDocumentInternal;
 import com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx;
 import com.orientechnologies.orient.core.id.ORecordId;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.ORecordInternal;
 import com.orientechnologies.orient.core.record.ORecordVersionHelper;
 import com.orientechnologies.orient.core.record.impl.ODocument;
@@ -61,13 +62,13 @@ public class OUpdateRecordTask extends OAbstractRecordReplicatedTask {
 
   public OUpdateRecordTask(final ORecord iRecord) {
     super((ORecordId) iRecord.getIdentity(), iRecord.getVersion() - 1);
-    content = iRecord.toStream();
+    content = ((ORecordAbstract)iRecord).toStream();
     recordType = ORecordInternal.getRecordType(iRecord);
   }
 
   public OUpdateRecordTask(final ORecord iRecord, final int version) {
     super((ORecordId) iRecord.getIdentity(), version);
-    content = iRecord.toStream();
+    content = ((ORecordAbstract)iRecord).toStream();
     recordType = ORecordInternal.getRecordType(iRecord);
   }
 
@@ -136,7 +137,7 @@ public class OUpdateRecordTask extends OAbstractRecordReplicatedTask {
       // RECORD
       final ORecord goodRecord = (ORecord) iGoodResponse;
       final int versionCopy = ORecordVersionHelper.setRollbackMode(goodRecord.getVersion());
-      return new OUpdateRecordTask(rid, goodRecord.toStream(), versionCopy, recordType);
+      return new OUpdateRecordTask(rid, ((ORecordAbstract)goodRecord).toStream(), versionCopy, recordType);
     }
 
     return null;
@@ -148,7 +149,7 @@ public class OUpdateRecordTask extends OAbstractRecordReplicatedTask {
       return null;
 
     final int versionCopy = ORecordVersionHelper.setRollbackMode(previousRecord.getVersion());
-    final OUpdateRecordTask task = new OUpdateRecordTask(rid, previousRecord.toStream(), versionCopy, recordType);
+    final OUpdateRecordTask task = new OUpdateRecordTask(rid, ((ORecordAbstract)previousRecord).toStream(), versionCopy, recordType);
     task.setLockRecords(false);
     return task;
   }

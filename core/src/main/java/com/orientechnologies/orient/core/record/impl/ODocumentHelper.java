@@ -36,6 +36,7 @@ import com.orientechnologies.orient.core.id.ORID;
 import com.orientechnologies.orient.core.id.ORecordId;
 import com.orientechnologies.orient.core.metadata.schema.OType;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.ORecordInternal;
 import com.orientechnologies.orient.core.serialization.serializer.OStringSerializerHelper;
 import com.orientechnologies.orient.core.serialization.serializer.record.string.ORecordSerializerStringAbstract;
@@ -733,12 +734,12 @@ public class ODocumentHelper {
         else if (iFieldName.equalsIgnoreCase(ATTRIBUTE_TYPE))
           return Orient.instance().getRecordFactoryManager().getRecordTypeName(ORecordInternal.getRecordType(iCurrent.getRecord()));
         else if (iFieldName.equalsIgnoreCase(ATTRIBUTE_SIZE)) {
-          final byte[] stream = iCurrent.getRecord().toStream();
+          final byte[] stream = ((ORecordAbstract) iCurrent.getRecord()).toStream();
           return stream != null ? stream.length : 0;
         } else if (iFieldName.equalsIgnoreCase(ATTRIBUTE_FIELDS))
           return ((ODocument) iCurrent.getRecord()).fieldNames();
         else if (iFieldName.equalsIgnoreCase(ATTRIBUTE_RAW))
-          return new String(iCurrent.getRecord().toStream());
+          return new String(((ORecordAbstract)iCurrent.getRecord()).toStream());
       }
     }
     if (iCurrent == null)

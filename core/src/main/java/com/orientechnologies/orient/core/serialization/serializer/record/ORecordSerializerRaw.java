@@ -23,6 +23,7 @@ import com.orientechnologies.common.exception.OException;
 import com.orientechnologies.common.log.OLogManager;
 import com.orientechnologies.orient.core.exception.OSerializationException;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.impl.OBlob;
 import com.orientechnologies.orient.core.record.impl.ORecordBytes;
 
@@ -56,7 +57,7 @@ public class ORecordSerializerRaw implements ORecordSerializer {
   public ORecord fromStream(final byte[] iSource, final ORecord iRecord, String[] iFields) {
     final OBlob record = (OBlob) iRecord;
     record.reset();
-    record.fromStream(iSource);
+    ((ORecordAbstract)record).fromStream(iSource);
 
     return record;
   }
@@ -68,7 +69,7 @@ public class ORecordSerializerRaw implements ORecordSerializer {
 
   public byte[] toStream(final ORecord iSource, boolean iOnlyDelta) {
     try {
-      return iSource.toStream();
+      return ((ORecordAbstract) iSource).toStream();
     } catch (Exception e) {
       final String message = "Error on unmarshalling object in binary format: " + iSource.getIdentity();
       OLogManager.instance().error(this, message, e);

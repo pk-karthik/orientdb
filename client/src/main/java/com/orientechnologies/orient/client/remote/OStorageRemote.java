@@ -52,6 +52,7 @@ import com.orientechnologies.orient.core.id.ORID;
 import com.orientechnologies.orient.core.id.ORecordId;
 import com.orientechnologies.orient.core.metadata.security.OTokenException;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.ORecordInternal;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.security.OCredentialInterceptor;
@@ -2143,7 +2144,7 @@ public class OStorageRemote extends OStorageAbstract implements OStorageProxy {
       switch (txEntry.type) {
       case ORecordOperation.CREATED:
       case ORecordOperation.UPDATED:
-        stream = txEntry.getRecord().toStream();
+        stream = ((ORecordAbstract) txEntry.getRecord()).toStream();
         break;
       }
     } catch (Exception e) {

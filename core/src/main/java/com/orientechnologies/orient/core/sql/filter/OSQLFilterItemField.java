@@ -29,6 +29,7 @@ import com.orientechnologies.orient.core.exception.OCommandExecutionException;
 import com.orientechnologies.orient.core.metadata.schema.OClass;
 import com.orientechnologies.orient.core.metadata.schema.OProperty;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.serialization.serializer.record.binary.BytesContainer;
 import com.orientechnologies.orient.core.serialization.serializer.record.binary.OBinaryField;
@@ -148,8 +149,9 @@ public class OSQLFilterItemField extends OSQLFilterItemAbstract {
 
     final ORecord rec = iRecord.getRecord();
 
-    return ORecordSerializerBinary.INSTANCE.getCurrentSerializer().deserializeField(new BytesContainer(rec.toStream()).skip(1),
-        rec instanceof ODocument ? ((ODocument) rec).getSchemaClass() : null, name);
+    return ORecordSerializerBinary.INSTANCE.getCurrentSerializer()
+        .deserializeField(new BytesContainer(((ORecordAbstract) rec).toStream()).skip(1),
+            rec instanceof ODocument ? ((ODocument) rec).getSchemaClass() : null, name);
   }
 
   public String getRoot() {

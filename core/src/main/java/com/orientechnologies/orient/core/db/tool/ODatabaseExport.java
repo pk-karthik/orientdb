@@ -37,6 +37,7 @@ import com.orientechnologies.orient.core.metadata.schema.OProperty;
 import com.orientechnologies.orient.core.metadata.schema.OSchema;
 import com.orientechnologies.orient.core.metadata.schema.OSchemaShared;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.serialization.serializer.OJSONWriter;
 import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
@@ -206,7 +207,7 @@ public class ODatabaseExport extends ODatabaseImpExpAbstract {
           throw e;
         } catch (Throwable t) {
           if (rec != null) {
-            final byte[] buffer = rec.toStream();
+            final byte[] buffer = ((ORecordAbstract)rec).toStream();
 
             OLogManager.instance().error(this,
                 "\nError on exporting record %s. It seems corrupted; size: %d bytes, raw content (as string):\n==========\n%s\n==========",
@@ -574,7 +575,7 @@ public class ODatabaseExport extends ODatabaseImpExpAbstract {
         return true;
       } catch (Throwable t) {
         if (rec != null) {
-          final byte[] buffer = rec.toStream();
+          final byte[] buffer = ((ORecordAbstract)rec).toStream();
 
           OLogManager.instance().error(this,
               "\nError on exporting record %s. It seems corrupted; size: %d bytes, raw content (as string):\n==========\n%s\n==========",
