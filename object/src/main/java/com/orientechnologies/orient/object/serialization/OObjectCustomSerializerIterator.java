@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.object.enhancement.OObjectEntitySerializer;
 
 /**
@@ -32,11 +33,11 @@ import com.orientechnologies.orient.object.enhancement.OObjectEntitySerializer;
 public class OObjectCustomSerializerIterator<TYPE> implements Iterator<TYPE>, Serializable {
 	private static final long									serialVersionUID	= -4012483076050044405L;
 
-	private final ORecord									sourceRecord;
-	private final Iterator<? extends Object>	underlying;
-	private final Class<?>										deserializeClass;
+	private final ORecordAbstract            sourceRecord;
+	private final Iterator<? extends Object> underlying;
+	private final Class<?>                   deserializeClass;
 
-	public OObjectCustomSerializerIterator(final Class<?> iDeserializeClass, final ORecord iSourceRecord,
+	public OObjectCustomSerializerIterator(final Class<?> iDeserializeClass, final ORecordAbstract iSourceRecord,
 			final Iterator<? extends Object> iIterator) {
 		this.sourceRecord = iSourceRecord;
 		this.underlying = iIterator;

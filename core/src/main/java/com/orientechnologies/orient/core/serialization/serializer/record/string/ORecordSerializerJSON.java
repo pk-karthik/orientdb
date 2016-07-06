@@ -168,7 +168,7 @@ public class ORecordSerializerJSON extends ORecordSerializerStringAbstract {
   }
 
   @Override
-  public ORecord fromString(String iSource, ORecord iRecord, final String[] iFields) {
+  public ORecord fromString(String iSource, ORecordAbstract iRecord, final String[] iFields) {
     return fromString(iSource, iRecord, iFields, null, false);
   }
 

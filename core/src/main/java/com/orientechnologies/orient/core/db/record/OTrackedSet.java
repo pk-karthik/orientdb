@@ -23,6 +23,7 @@ import java.io.Serializable;
 import java.util.*;
 
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.ORecordInternal;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.record.impl.ODocumentInternal;
@@ -36,20 +37,20 @@ import com.orientechnologies.orient.core.record.impl.ODocumentInternal;
  */
 @SuppressWarnings("serial")
 public class OTrackedSet<T> extends HashSet<T> implements ORecordElement, OTrackedMultiValue<T, T>, Serializable {
-  protected final ORecord                       sourceRecord;
-  private final boolean                         embeddedCollection;
-  protected Class<?>                            genericClass;
+  protected final ORecordAbstract sourceRecord;
+  private final   boolean         embeddedCollection;
+  protected       Class<?>        genericClass;
   private STATUS                                status          = STATUS.NOT_LOADED;
   private List<OMultiValueChangeListener<T, T>> changeListeners;
 
-  public OTrackedSet(final ORecord iRecord, final Collection<? extends T> iOrigin, final Class<?> cls) {
+  public OTrackedSet(final ORecordAbstract iRecord, final Collection<? extends T> iOrigin, final Class<?> cls) {
     this(iRecord);
     genericClass = cls;
     if (iOrigin != null && !iOrigin.isEmpty())
       addAll(iOrigin);
   }
 
-  public OTrackedSet(final ORecord iSourceRecord) {
+  public OTrackedSet(final ORecordAbstract iSourceRecord) {
     this.sourceRecord = iSourceRecord;
     embeddedCollection = this.getClass().equals(OTrackedSet.class);
   }

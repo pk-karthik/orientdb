@@ -33,6 +33,7 @@ import com.orientechnologies.orient.core.index.OIndex;
 import com.orientechnologies.orient.core.metadata.OMetadataInternal;
 import com.orientechnologies.orient.core.metadata.schema.OClass;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.serialization.serializer.OStringSerializerHelper;
 import com.orientechnologies.orient.core.sql.filter.OSQLFilterItemField;
@@ -283,7 +284,7 @@ public class OCommandExecutorSQLInsert extends OCommandExecutorSQLSetAware imple
     if (rec instanceof ODocument && className != null)
       ((ODocument) rec).setClassName(className);
 
-    rec.setDirty();
+    ((ORecordAbstract)rec).setDirty();
     synchronized (this) {
       saveRecord(rec);
       if (queryResult != null)

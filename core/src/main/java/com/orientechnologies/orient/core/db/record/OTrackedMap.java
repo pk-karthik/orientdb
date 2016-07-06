@@ -23,6 +23,7 @@ import java.io.Serializable;
 import java.util.*;
 
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.ORecordInternal;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.record.impl.ODocumentInternal;
@@ -36,20 +37,20 @@ import com.orientechnologies.orient.core.record.impl.ODocumentInternal;
  */
 @SuppressWarnings("serial")
 public class OTrackedMap<T> extends LinkedHashMap<Object, T> implements ORecordElement, OTrackedMultiValue<Object, T>, Serializable {
-  final protected ORecord                            sourceRecord;
+  final protected ORecordAbstract                    sourceRecord;
   private STATUS                                     status          = STATUS.NOT_LOADED;
   private List<OMultiValueChangeListener<Object, T>> changeListeners = null;
   protected Class<?>                                 genericClass;
   private final boolean                              embeddedCollection;
 
-  public OTrackedMap(final ORecord iRecord, final Map<Object, T> iOrigin, final Class<?> cls) {
+  public OTrackedMap(final ORecordAbstract iRecord, final Map<Object, T> iOrigin, final Class<?> cls) {
     this(iRecord);
     genericClass = cls;
     if (iOrigin != null && !iOrigin.isEmpty())
       putAll(iOrigin);
   }
 
-  public OTrackedMap(final ORecord iSourceRecord) {
+  public OTrackedMap(final ORecordAbstract iSourceRecord) {
     this.sourceRecord = iSourceRecord;
     embeddedCollection = this.getClass().equals(OTrackedMap.class);
   }

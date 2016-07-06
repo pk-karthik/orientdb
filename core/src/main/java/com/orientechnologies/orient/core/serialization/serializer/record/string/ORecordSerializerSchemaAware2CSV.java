@@ -39,6 +39,7 @@ import com.orientechnologies.orient.core.metadata.schema.OClass;
 import com.orientechnologies.orient.core.metadata.schema.OProperty;
 import com.orientechnologies.orient.core.metadata.schema.OType;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.record.impl.ODocumentInternal;
 import com.orientechnologies.orient.core.serialization.OBinaryProtocol;
@@ -90,7 +91,7 @@ public class ORecordSerializerSchemaAware2CSV extends ORecordSerializerCSVAbstra
   }
 
   @Override
-  public ORecord fromString(String iContent, final ORecord iRecord, final String[] iFields) {
+  public ORecord fromString(String iContent, final ORecordAbstract iRecord, final String[] iFields) {
     iContent = iContent.trim();
 
     if (iContent.length() == 0)

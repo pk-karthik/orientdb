@@ -25,15 +25,14 @@ import com.orientechnologies.orient.core.record.ORecord;
 
 /**
  * Implementation of Iterator that keeps track of changes to the source record avoiding to call setDirty() by hand.
- * 
+ *
  * @author Luca Garulli (l.garulli--at--orientechnologies.com)
- * 
  */
 public class ORecordTrackedIterator implements Iterator<OIdentifiable> {
-  final private ORecord     sourceRecord;
-  final private Iterator<?> underlying;
+  final private ORecordElement sourceRecord;
+  final private Iterator<?>    underlying;
 
-  public ORecordTrackedIterator(final ORecord iSourceRecord, final Iterator<?> iIterator) {
+  public ORecordTrackedIterator(final ORecordElement iSourceRecord, final Iterator<?> iIterator) {
     this.sourceRecord = iSourceRecord;
     this.underlying = iIterator;
   }

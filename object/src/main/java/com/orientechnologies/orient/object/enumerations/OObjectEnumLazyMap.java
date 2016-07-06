@@ -22,17 +22,18 @@ import java.util.Map;
 import java.util.Set;
 
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 
 public class OObjectEnumLazyMap<TYPE extends Enum> extends HashMap<Object, Object> implements Serializable,
     OObjectLazyEnumSerializer<Map<Object, Object>> {
   private static final long         serialVersionUID = -8606432090996808181L;
 
-  private final ORecord          sourceRecord;
+  private final ORecordAbstract     sourceRecord;
   private final Map<Object, Object> underlying;
   private boolean                   converted        = false;
   private final Class<Enum>         enumClass;
 
-  public OObjectEnumLazyMap(final Class<Enum> iEnumClass, final ORecord iSourceRecord, final Map<Object, Object> iRecordMap) {
+  public OObjectEnumLazyMap(final Class<Enum> iEnumClass, final ORecordAbstract iSourceRecord, final Map<Object, Object> iRecordMap) {
     super();
     this.sourceRecord = iSourceRecord;
     this.underlying = iRecordMap;
@@ -40,7 +41,7 @@ public class OObjectEnumLazyMap<TYPE extends Enum> extends HashMap<Object, Objec
     this.enumClass = iEnumClass;
   }
 
-  public OObjectEnumLazyMap(final Class<Enum> iEnumClass, final ORecord iSourceRecord, final Map<Object, Object> iRecordMap,
+  public OObjectEnumLazyMap(final Class<Enum> iEnumClass, final ORecordAbstract iSourceRecord, final Map<Object, Object> iRecordMap,
       final Map<Object, Object> iSourceMap) {
     this(iEnumClass, iSourceRecord, iRecordMap);
     putAll(iSourceMap);

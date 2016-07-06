@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 
 /**
  * 
@@ -34,18 +35,18 @@ public class OObjectEnumLazySet<TYPE extends Enum> extends HashSet<TYPE> impleme
     Serializable {
   private static final long serialVersionUID = -7698875159671927472L;
 
-  private final ORecord  sourceRecord;
-  private final Set<Object> underlying;
+  private final ORecordAbstract sourceRecord;
+  private final Set<Object>     underlying;
   private boolean           converted        = false;
   private final Class<Enum> enumClass;
 
-  public OObjectEnumLazySet(final Class<Enum> iEnumClass, final ORecord iSourceRecord, final Set<Object> iRecordSource) {
+  public OObjectEnumLazySet(final Class<Enum> iEnumClass, final ORecordAbstract iSourceRecord, final Set<Object> iRecordSource) {
     this.sourceRecord = iSourceRecord;
     this.underlying = iRecordSource;
     this.enumClass = iEnumClass;
   }
 
-  public OObjectEnumLazySet(final Class<Enum> iEnumClass, final ORecord iSourceRecord, final Set<Object> iRecordSource,
+  public OObjectEnumLazySet(final Class<Enum> iEnumClass, final ORecordAbstract iSourceRecord, final Set<Object> iRecordSource,
       final Set<? extends TYPE> iSourceCollection) {
     this.sourceRecord = iSourceRecord;
     this.underlying = iRecordSource;

@@ -30,6 +30,7 @@ import com.orientechnologies.orient.core.db.record.OMultiValueChangeListener;
 import com.orientechnologies.orient.core.db.record.ridbag.ORidBagDelegate;
 import com.orientechnologies.orient.core.id.ORID;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.ORecordInternal;
 import com.orientechnologies.orient.core.serialization.serializer.binary.impl.OLinkSerializer;
 
@@ -47,7 +48,7 @@ public class OEmbeddedRidBag implements ORidBagDelegate {
   private boolean convertToRecord = true;
   private int     size            = 0;
 
-  private transient ORecord owner;
+  private transient ORecordAbstract owner;
 
   private List<OMultiValueChangeListener<OIdentifiable, OIdentifiable>> changeListeners;
 
@@ -158,7 +159,7 @@ public class OEmbeddedRidBag implements ORidBagDelegate {
   }
 
   @Override
-  public ORecord getOwner() {
+  public ORecordAbstract getOwner() {
     return owner;
   }
 
@@ -178,7 +179,7 @@ public class OEmbeddedRidBag implements ORidBagDelegate {
   }
 
   @Override
-  public void setOwner(ORecord owner) {
+  public void setOwner(ORecordAbstract owner) {
     if (owner != null && this.owner != null && !this.owner.equals(owner)) {
       throw new IllegalStateException("This data structure is owned by document " + owner
           + " if you want to use it in other document create new rid bag instance and copy content of current one.");

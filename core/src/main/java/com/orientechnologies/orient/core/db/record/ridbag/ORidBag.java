@@ -33,6 +33,7 @@ import com.orientechnologies.orient.core.db.record.ridbag.sbtree.OSBTreeRidBag;
 import com.orientechnologies.orient.core.exception.OSerializationException;
 import com.orientechnologies.orient.core.index.sbtreebonsai.local.OSBTreeBonsai;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.serialization.OBase64Utils;
 import com.orientechnologies.orient.core.serialization.serializer.record.binary.BytesContainer;
 import com.orientechnologies.orient.core.serialization.serializer.string.OStringBuilderSerializable;
@@ -209,7 +210,7 @@ public class ORidBag implements OStringBuilderSerializable, Iterable<OIdentifiab
         for (OIdentifiable identifiable : oldDelegate)
           delegate.add(identifiable);
 
-        final ORecord owner = oldDelegate.getOwner();
+        final ORecordAbstract owner = oldDelegate.getOwner();
         delegate.setOwner(owner);
 
         for (OMultiValueChangeListener<OIdentifiable, OIdentifiable> listener : oldDelegate.getChangeListeners())
@@ -228,7 +229,7 @@ public class ORidBag implements OStringBuilderSerializable, Iterable<OIdentifiab
         for (OIdentifiable identifiable : oldDelegate)
           delegate.add(identifiable);
 
-        final ORecord owner = oldDelegate.getOwner();
+        final ORecordAbstract owner = oldDelegate.getOwner();
         delegate.setOwner(owner);
 
         for (OMultiValueChangeListener<OIdentifiable, OIdentifiable> listener : oldDelegate.getChangeListeners())
@@ -337,7 +338,7 @@ public class ORidBag implements OStringBuilderSerializable, Iterable<OIdentifiab
     return delegate.getGenericClass();
   }
 
-  public void setOwner(ORecord owner) {
+  public void setOwner(ORecordAbstract owner) {
     delegate.setOwner(owner);
   }
 

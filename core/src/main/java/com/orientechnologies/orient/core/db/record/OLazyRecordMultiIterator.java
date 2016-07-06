@@ -27,6 +27,7 @@ import com.orientechnologies.common.collection.OLazyIterator;
 import com.orientechnologies.common.util.OResettable;
 import com.orientechnologies.orient.core.id.ORecordId;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 
 /**
  * Lazy implementation of Iterator that load the records only when accessed. It keep also track of changes to the source record
@@ -38,13 +39,13 @@ import com.orientechnologies.orient.core.record.ORecord;
  * 
  */
 public class OLazyRecordMultiIterator implements OLazyIterator<OIdentifiable>, OResettable {
-  final private ORecord sourceRecord;
-  final private Object[]   underlyingSources;
-  final private Object[]   underlyingIterators;
-  final private boolean    convertToRecord;
+  final private ORecordAbstract sourceRecord;
+  final private Object[]        underlyingSources;
+  final private Object[]        underlyingIterators;
+  final private boolean         convertToRecord;
   private int              iteratorIndex = 0;
 
-  public OLazyRecordMultiIterator(final ORecord iSourceRecord, final Object[] iIterators, final boolean iConvertToRecord) {
+  public OLazyRecordMultiIterator(final ORecordAbstract iSourceRecord, final Object[] iIterators, final boolean iConvertToRecord) {
     this.sourceRecord = iSourceRecord;
     this.underlyingSources = iIterators;
     this.underlyingIterators = new Object[iIterators.length];

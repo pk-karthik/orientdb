@@ -23,6 +23,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.impl.OBlob;
 import org.testng.Assert;
 import org.testng.annotations.Optional;
@@ -100,12 +101,12 @@ public class TransactionOptimisticTest extends DocumentDBBaseTest {
       ODatabaseRecordThreadLocal.INSTANCE.set(db2);
       OBlob record2 = db2.load(record1.getIdentity());
 
-      record2.setDirty();
+      ((ORecordAbstract)record2).setDirty();
       record2.fromStream("This is the second version".getBytes());
       record2.save();
 
       ODatabaseRecordThreadLocal.INSTANCE.set(database);
-      record1.setDirty();
+      ((ORecordAbstract)record1).setDirty();
       record1.fromStream("This is the third version".getBytes());
       record1.save();
 
@@ -140,7 +141,7 @@ public class TransactionOptimisticTest extends DocumentDBBaseTest {
       // RE-READ THE RECORD
       record.load();
       int v1 = record.getVersion();
-      record.setDirty();
+      ((ORecordAbstract) record).setDirty();
       record.fromStream("This is the second version".getBytes());
       record.save();
       database.commit();
@@ -171,7 +172,7 @@ public class TransactionOptimisticTest extends DocumentDBBaseTest {
       // RE-READ THE RECORD
       record1.load();
       int v1 = record1.getVersion();
-      record1.setDirty();
+      ((ORecordAbstract) record1).setDirty();
       record1.fromStream("This is the second version".getBytes());
       record1.save();
 

@@ -96,7 +96,7 @@ public class OUpdateRecordTask extends OAbstractRecordReplicatedTask {
 
     checkRecordExists();
 
-    ORecord loadedRecord = previousRecord.copy();
+    ORecordAbstract loadedRecord = previousRecord.copy();
 
     if (loadedRecord instanceof ODocument) {
       // APPLY CHANGES FIELD BY FIELD TO MARK DIRTY FIELDS FOR INDEXES/HOOKS

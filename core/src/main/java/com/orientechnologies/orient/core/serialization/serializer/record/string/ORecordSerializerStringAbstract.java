@@ -31,6 +31,7 @@ import com.orientechnologies.orient.core.id.ORID;
 import com.orientechnologies.orient.core.id.ORecordId;
 import com.orientechnologies.orient.core.metadata.schema.OType;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.record.impl.ODocumentInternal;
 import com.orientechnologies.orient.core.serialization.OBase64Utils;
@@ -662,14 +663,14 @@ public abstract class ORecordSerializerStringAbstract implements ORecordSerializ
     }
   }
 
-  public abstract ORecord fromString(String iContent, ORecord iRecord, String[] iFields);
+  public abstract ORecord fromString(String iContent, ORecordAbstract iRecord, String[] iFields);
 
   public StringBuilder toString(final ORecord iRecord, final StringBuilder iOutput, final String iFormat) {
     return toString(iRecord, iOutput, iFormat, null, false, true);
   }
 
   public ORecord fromString(final String iSource) {
-    return fromString(iSource, (ORecord) ODatabaseRecordThreadLocal.INSTANCE.get().newInstance(), null);
+    return fromString(iSource, ODatabaseRecordThreadLocal.INSTANCE.get().newInstance(), null);
   }
 
   @Override
@@ -681,7 +682,7 @@ public abstract class ORecordSerializerStringAbstract implements ORecordSerializ
     final long timer = PROFILER.startChrono();
 
     try {
-      return fromString(new String(iSource,"UTF-8"), iRecord, iFields);
+      return fromString(new String(iSource,"UTF-8"), (ORecordAbstract)iRecord, iFields);
     } catch (UnsupportedEncodingException e) {
       throw OException.wrapException(new OSchemaException("Error reading record"),e);
     } finally {

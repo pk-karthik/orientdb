@@ -44,7 +44,7 @@ import java.util.Set;
 import java.util.WeakHashMap;
 
 @SuppressWarnings({ "unchecked", "serial" })
-public abstract class ORecordAbstract implements ORecord, OSerializableStream, Serializable {
+public abstract class ORecordAbstract implements ORecord, OSerializableStream, Serializable, ORecordElement {
   protected ORecordId                            _recordId;
   protected int                                  _recordVersion             = 0;
 

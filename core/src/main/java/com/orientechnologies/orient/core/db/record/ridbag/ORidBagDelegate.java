@@ -29,6 +29,7 @@ import com.orientechnologies.orient.core.db.record.OMultiValueChangeListener;
 import com.orientechnologies.orient.core.db.record.ORecordLazyMultiValue;
 import com.orientechnologies.orient.core.db.record.OTrackedMultiValue;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 
 public interface ORidBagDelegate extends Iterable<OIdentifiable>, ORecordLazyMultiValue,
     OTrackedMultiValue<OIdentifiable, OIdentifiable> {
@@ -72,9 +73,9 @@ public interface ORidBagDelegate extends Iterable<OIdentifiable>, ORecordLazyMul
    */
   boolean contains(OIdentifiable identifiable);
 
-  public void setOwner(ORecord owner);
+  public void setOwner(ORecordAbstract owner);
 
-  public ORecord getOwner();
+  public ORecordAbstract getOwner();
 
   public String toString();
 

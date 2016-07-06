@@ -22,6 +22,7 @@ package com.orientechnologies.orient.core.db.record;
 import java.util.Iterator;
 
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 
 /**
  * Implementation of ArrayList bound to a source ORecord object to keep track of changes. This avoid to call the makeDirty() by hand
@@ -32,7 +33,7 @@ import com.orientechnologies.orient.core.record.ORecord;
  */
 @SuppressWarnings({ "serial" })
 public class ORecordTrackedList extends OTrackedList<OIdentifiable> {
-  public ORecordTrackedList(final ORecord iSourceRecord) {
+  public ORecordTrackedList(final ORecordAbstract iSourceRecord) {
     super(iSourceRecord);
   }
 

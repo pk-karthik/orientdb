@@ -22,6 +22,7 @@ package com.orientechnologies.orient.core.record.impl;
 import com.orientechnologies.orient.core.db.record.OIdentifiable;
 import com.orientechnologies.orient.core.db.record.ORecordElement;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.ORecordInternal;
 
 import java.util.*;
@@ -37,7 +38,7 @@ public class ODirtyManager {
   private Set<ORecord>                        newRecords;
   private Set<ORecord>                        updateRecords;
 
-  public void setDirty(ORecord record) {
+  public void setDirty(ORecordAbstract record) {
     ODirtyManager real = getReal();
     if (record.getIdentity().isNew() && !record.getIdentity().isTemporary()) {
       if (real.newRecords == null)
@@ -106,11 +107,11 @@ public class ODirtyManager {
     toMerge.override(this);
   }
 
-  public void track(ORecord pointing, OIdentifiable pointed) {
+  public void track(ORecordAbstract pointing, OIdentifiable pointed) {
     getReal().internalTrack(pointing, pointed);
   }
 
-  public void unTrack(ORecord pointing, OIdentifiable pointed) {
+  public void unTrack(ORecordAbstract pointing, OIdentifiable pointed) {
     getReal().internalUnTrack(pointing, pointed);
   }
 
@@ -128,7 +129,7 @@ public class ODirtyManager {
     }
   }
 
-  private void internalTrack(ORecord pointing, OIdentifiable pointed) {
+  private void internalTrack(ORecordAbstract pointing, OIdentifiable pointed) {
     if (pointing instanceof ODocument) {
       if (((ODocument) pointing).isEmbedded()) {
 
@@ -136,7 +137,7 @@ public class ODirtyManager {
         while (!(ele instanceof ODocument) && ele != null && ele.getOwner() != null)
           ele = ele.getOwner();
         if (ele != null)
-          pointing = (ORecord) ele;
+          pointing = (ORecordAbstract) ele;
       }
     }
     if (pointed.getIdentity().isNew()) {

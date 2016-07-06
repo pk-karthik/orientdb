@@ -22,6 +22,7 @@ package com.orientechnologies.orient.core.db.record;
 import java.util.*;
 
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.ORecordInternal;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.record.impl.ODocumentInternal;
@@ -35,13 +36,13 @@ import com.orientechnologies.orient.core.record.impl.ODocumentInternal;
  */
 public class ORecordTrackedSet extends AbstractCollection<OIdentifiable> implements Set<OIdentifiable>,
     OTrackedMultiValue<OIdentifiable, OIdentifiable>, ORecordElement {
-  protected final ORecord                                               sourceRecord;
+  protected final ORecordAbstract                                       sourceRecord;
   protected Map<OIdentifiable, Object>                                  map             = new HashMap<OIdentifiable, Object>();
   private STATUS                                                        status          = STATUS.NOT_LOADED;
   protected final static Object                                         ENTRY_REMOVAL   = new Object();
   private List<OMultiValueChangeListener<OIdentifiable, OIdentifiable>> changeListeners;
 
-  public ORecordTrackedSet(final ORecord iSourceRecord) {
+  public ORecordTrackedSet(final ORecordAbstract iSourceRecord) {
     this.sourceRecord = iSourceRecord;
     if (iSourceRecord != null)
       iSourceRecord.setDirty();

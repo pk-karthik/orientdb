@@ -137,7 +137,7 @@ public class OTransactionOptimisticProxy extends OTransactionOptimistic {
 
       String name = oNetworkProtocolBinary.getRecordSerializerName(connection);
       for (Map.Entry<ORecord, byte[]> entry : lazyDeserialize.entrySet()) {
-        ORecord record = entry.getKey();
+        ORecordAbstract record = (ORecordAbstract) entry.getKey();
         final boolean contentChanged = ORecordInternal.isContentChanged(record);
 
         if (ORecordInternal.getRecordType(record) == ODocument.RECORD_TYPE && !dbSerializerName.equals(name)) {
@@ -171,7 +171,7 @@ public class OTransactionOptimisticProxy extends OTransactionOptimistic {
           final ORecord record = entry.getValue().record.getRecord();
           final boolean contentChanged = ORecordInternal.isContentChanged(record);
 
-          final ORecord loadedRecord = record.getIdentity().copy().getRecord();
+          final ORecordAbstract loadedRecord = record.getIdentity().copy().getRecord();
           if (loadedRecord == null)
             throw new ORecordNotFoundException(record.getIdentity());
 

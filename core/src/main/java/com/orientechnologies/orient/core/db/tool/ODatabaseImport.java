@@ -50,6 +50,7 @@ import com.orientechnologies.orient.core.metadata.security.ORole;
 import com.orientechnologies.orient.core.metadata.security.OSecurityShared;
 import com.orientechnologies.orient.core.metadata.security.OUser;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.ORecordInternal;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.record.impl.ODocumentInternal;
@@ -80,7 +81,7 @@ public class ODatabaseImport extends ODatabaseImpExpAbstract {
   private Map<OPropertyImpl, String> linkedClasses                   = new HashMap<OPropertyImpl, String>();
   private Map<OClass, List<String>>  superClasses                    = new HashMap<OClass, List<String>>();
   private OJSONReader                jsonReader;
-  private ORecord                    record;
+  private ORecordAbstract            record;
   private boolean                    schemaImported                  = false;
   private int                        exporterVersion                 = -1;
   private ORID                       schemaRecordId;
@@ -1301,7 +1302,7 @@ public class ODatabaseImport extends ODatabaseImpExpAbstract {
     try {
 
       try {
-        record = ORecordSerializerJSON.INSTANCE.fromString(value, record, null);
+        record = (ORecordAbstract)ORecordSerializerJSON.INSTANCE.fromString(value, record, null);
       } catch (OSerializationException e) {
         if (e.getCause() instanceof OSchemaException) {
           // EXTRACT CLASS NAME If ANY
@@ -1316,7 +1317,7 @@ public class ODatabaseImport extends ODatabaseImpExpAbstract {
 
             value = value1 + newClassName + value2;
             // OVERWRITE CLASS NAME WITH NEW NAME
-            record = ORecordSerializerJSON.INSTANCE.fromString(value, record, null);
+            record = (ORecordAbstract)ORecordSerializerJSON.INSTANCE.fromString(value, record, null);
           }
         } else
           throw OException.wrapException(new ODatabaseImportException("Error on importing record"), e);

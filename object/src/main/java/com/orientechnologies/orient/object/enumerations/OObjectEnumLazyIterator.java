@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 
 /**
  * Lazy implementation of Iterator that load the records only when accessed. It keep also track of changes to the source record
@@ -31,11 +32,11 @@ import com.orientechnologies.orient.core.record.ORecord;
 public class OObjectEnumLazyIterator<TYPE extends Enum> implements Iterator<TYPE>, Serializable {
 	private static final long									serialVersionUID	= -4012483076050044405L;
 
-	private final ORecord									sourceRecord;
+	private final ORecordAbstract									sourceRecord;
 	private final Iterator<? extends Object>	underlying;
 	private final Class<Enum>									enumClass;
 
-	public OObjectEnumLazyIterator(final Class<Enum> iEnumClass, final ORecord iSourceRecord,
+	public OObjectEnumLazyIterator(final Class<Enum> iEnumClass, final ORecordAbstract iSourceRecord,
 			final Iterator<? extends Object> iIterator) {
 		this.sourceRecord = iSourceRecord;
 		this.underlying = iIterator;

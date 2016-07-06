@@ -2548,7 +2548,7 @@ public class ONetworkProtocolBinary extends ONetworkProtocol {
   }
 
   public void fillRecord(OClientConnection connection, final ORecordId rid, final byte[] buffer, final int version,
-      final ORecord record) {
+      final ORecordAbstract record) {
     String dbSerializerName = "";
     if (connection.getDatabase() != null)
       dbSerializerName = connection.getDatabase().getSerializer().toString();
@@ -2678,7 +2678,7 @@ public class ONetworkProtocolBinary extends ONetworkProtocol {
   }
 
   protected ORecord createRecord(OClientConnection connection, final ORecordId rid, final byte[] buffer, final byte recordType) {
-    final ORecord record = Orient.instance().getRecordFactoryManager().newInstance(recordType);
+    final ORecordAbstract record = (ORecordAbstract) Orient.instance().getRecordFactoryManager().newInstance(recordType);
     fillRecord(connection, rid, buffer, 0, record);
     connection.getDatabase().save(record);
     return record;
@@ -2687,7 +2687,7 @@ public class ONetworkProtocolBinary extends ONetworkProtocol {
   protected int updateRecord(OClientConnection connection, final ORecordId rid, final byte[] buffer, final int version,
       final byte recordType, boolean updateContent) {
     ODatabaseDocumentInternal database = connection.getDatabase();
-    final ORecord newRecord = Orient.instance().getRecordFactoryManager().newInstance(recordType);
+    final ORecordAbstract newRecord = (ORecordAbstract) Orient.instance().getRecordFactoryManager().newInstance(recordType);
     fillRecord(connection, rid, buffer, version, newRecord);
 
     ORecordInternal.setContentChanged(newRecord, updateContent);

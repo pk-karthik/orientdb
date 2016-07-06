@@ -514,7 +514,7 @@ public class ODocumentHelper {
           } else if (currentRecord != null) {
             // GET THE LINKED OBJECT IF ANY
             value = getIdentifiableValue(currentRecord, fieldName);
-            if (value != null && value instanceof ORecord && ((ORecord) value).getInternalStatus() == STATUS.NOT_LOADED)
+            if (value != null && value instanceof ORecord && ((ORecordAbstract) value).getInternalStatus() == STATUS.NOT_LOADED)
               // RELOAD IT
               ((ORecord) value).reload();
           } else if (value instanceof Map<?, ?>)

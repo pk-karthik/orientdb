@@ -1851,7 +1851,7 @@ public class ODatabaseDocumentTx extends OListenerManger<ODatabaseListener> impl
         if (callbackHooks(ORecordHook.TYPE.BEFORE_READ, record) == ORecordHook.RESULT.SKIP)
           return null;
 
-        if (record.getInternalStatus() == ORecordElement.STATUS.NOT_LOADED)
+        if (((ORecordAbstract)record).getInternalStatus() == ORecordElement.STATUS.NOT_LOADED)
           record.reload();
 
         if (lockingStrategy == OStorage.LOCKING_STRATEGY.KEEP_SHARED_LOCK) {
@@ -2018,7 +2018,7 @@ public class ODatabaseDocumentTx extends OListenerManger<ODatabaseListener> impl
       throw new ODatabaseException(
           "Cannot create record because it has no identity. Probably is not a regular record or contains projections of fields rather than a full record");
 
-    record.setInternalStatus(ORecordElement.STATUS.MARSHALLING);
+    ((ORecordAbstract)record).setInternalStatus(ORecordElement.STATUS.MARSHALLING);
     try {
 
       byte[] stream = null;
@@ -2123,7 +2123,7 @@ public class ODatabaseDocumentTx extends OListenerManger<ODatabaseListener> impl
         throw OException.wrapException(new ODatabaseException("Error on saving record " + record.getIdentity()), t);
 
     } finally {
-      record.setInternalStatus(ORecordElement.STATUS.LOADED);
+      ((ORecordAbstract)record).setInternalStatus(ORecordElement.STATUS.LOADED);
     }
     return (RET) record;
   }
@@ -3192,7 +3192,7 @@ public class ODatabaseDocumentTx extends OListenerManger<ODatabaseListener> impl
 
     ORecordSerializationContext.pushContext();
     ORecordInternal.unsetDirty(record);
-    record.setDirty();
+    ((ORecordAbstract)record).setDirty();
     return ((ORecordAbstract) record).toStream();
   }
 

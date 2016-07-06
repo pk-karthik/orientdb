@@ -20,6 +20,7 @@
 package com.orientechnologies.orient.core.db.record;
 
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.ORecordInternal;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.record.impl.ODocumentInternal;
@@ -36,20 +37,20 @@ import java.util.*;
  */
 @SuppressWarnings({ "serial" })
 public class OTrackedList<T> extends ArrayList<T> implements ORecordElement, OTrackedMultiValue<Integer, T>, Serializable {
-  protected final ORecord                               sourceRecord;
+  protected final ORecordAbstract sourceRecord;
   private STATUS                                        status          = STATUS.NOT_LOADED;
   protected List<OMultiValueChangeListener<Integer, T>> changeListeners = null;
   protected Class<?>                                    genericClass;
   private final boolean                                 embeddedCollection;
 
-  public OTrackedList(final ORecord iRecord, final Collection<? extends T> iOrigin, final Class<?> iGenericClass) {
+  public OTrackedList(final ORecordAbstract iRecord, final Collection<? extends T> iOrigin, final Class<?> iGenericClass) {
     this(iRecord);
     genericClass = iGenericClass;
     if (iOrigin != null && !iOrigin.isEmpty())
       addAll(iOrigin);
   }
 
-  public OTrackedList(final ORecord iSourceRecord) {
+  public OTrackedList(final ORecordAbstract iSourceRecord) {
     this.sourceRecord = iSourceRecord;
     embeddedCollection = this.getClass().equals(OTrackedList.class);
   }

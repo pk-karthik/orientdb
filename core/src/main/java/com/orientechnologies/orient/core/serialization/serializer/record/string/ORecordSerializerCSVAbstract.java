@@ -52,6 +52,7 @@ import com.orientechnologies.orient.core.metadata.OMetadataInternal;
 import com.orientechnologies.orient.core.metadata.schema.OClass;
 import com.orientechnologies.orient.core.metadata.schema.OType;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.record.impl.ODocumentInternal;
 import com.orientechnologies.orient.core.serialization.ODocumentSerializable;
@@ -132,7 +133,7 @@ public abstract class ORecordSerializerCSVAbstract extends ORecordSerializerStri
     return resultRid;
   }
 
-  public Object fieldFromStream(final ORecord iSourceRecord, final OType iType, OClass iLinkedClass, OType iLinkedType,
+  public Object fieldFromStream(final ORecordAbstract iSourceRecord, final OType iType, OClass iLinkedClass, OType iLinkedType,
       final String iName, final String iValue) {
 
     if (iValue == null)

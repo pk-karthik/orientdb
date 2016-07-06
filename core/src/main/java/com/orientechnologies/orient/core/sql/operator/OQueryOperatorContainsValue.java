@@ -30,6 +30,7 @@ import com.orientechnologies.orient.core.index.*;
 import com.orientechnologies.orient.core.metadata.schema.OProperty;
 import com.orientechnologies.orient.core.metadata.schema.OType;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.sql.filter.OSQLFilterCondition;
 import com.orientechnologies.orient.core.sql.filter.OSQLFilterItemField;
@@ -191,7 +192,7 @@ public class OQueryOperatorContainsValue extends OQueryOperatorEqualityNotNulls 
   @SuppressWarnings({ "unchecked", "rawtypes" })
   private Object loadIfNeed(Object o) {
     final ORecord record = (ORecord) o;
-    if (record.getRecord().getInternalStatus() == ORecordElement.STATUS.NOT_LOADED) {
+    if (((ORecordAbstract)record.getRecord()).getInternalStatus() == ORecordElement.STATUS.NOT_LOADED) {
       try {
         o = record.<ORecord> load();
       } catch (ORecordNotFoundException e) {

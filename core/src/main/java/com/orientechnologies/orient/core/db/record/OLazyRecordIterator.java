@@ -27,6 +27,7 @@ import com.orientechnologies.common.util.OResettable;
 import com.orientechnologies.orient.core.db.ODatabaseRecordThreadLocal;
 import com.orientechnologies.orient.core.id.ORecordId;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.ORecordInternal;
 
 /**
@@ -37,9 +38,9 @@ import com.orientechnologies.orient.core.record.ORecordInternal;
  * 
  */
 public class OLazyRecordIterator implements OLazyIterator<OIdentifiable>, OResettable {
-  final private ORecord                           sourceRecord;
+  final private ORecordAbstract                   sourceRecord;
   final private Iterable<? extends OIdentifiable> source;
-  private Iterator<? extends OIdentifiable>       underlying;
+  private       Iterator<? extends OIdentifiable> underlying;
   final private boolean                           autoConvert2Record;
 
   public OLazyRecordIterator(final Iterator<? extends OIdentifiable> iIterator, final boolean iConvertToRecord) {
@@ -49,7 +50,7 @@ public class OLazyRecordIterator implements OLazyIterator<OIdentifiable>, OReset
     this.source = null;
   }
 
-  public OLazyRecordIterator(final ORecord iSourceRecord, final Iterator<? extends OIdentifiable> iIterator,
+  public OLazyRecordIterator(final ORecordAbstract iSourceRecord, final Iterator<? extends OIdentifiable> iIterator,
       final boolean iConvertToRecord) {
     this.sourceRecord = iSourceRecord;
     this.underlying = iIterator;

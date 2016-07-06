@@ -36,6 +36,7 @@ import com.orientechnologies.orient.core.id.ORecordId;
 import com.orientechnologies.orient.core.metadata.schema.OType;
 import com.orientechnologies.orient.core.query.OQueryRuntimeValueMulti;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.serialization.serializer.OStringSerializerHelper;
 import com.orientechnologies.orient.core.serialization.serializer.record.binary.BytesContainer;
@@ -356,7 +357,7 @@ public class OSQLFilterCondition {
 
     if (iCurrentRecord != null) {
       iCurrentRecord = iCurrentRecord.getRecord();
-      if (iCurrentRecord != null && ((ORecord) iCurrentRecord).getInternalStatus() == ORecordElement.STATUS.NOT_LOADED) {
+      if (iCurrentRecord != null && ((ORecordAbstract) iCurrentRecord).getInternalStatus() == ORecordElement.STATUS.NOT_LOADED) {
         try {
           iCurrentRecord = iCurrentRecord.getRecord().load();
         } catch (ORecordNotFoundException e) {

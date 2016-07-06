@@ -38,6 +38,7 @@ import com.orientechnologies.orient.core.metadata.schema.OType;
 import com.orientechnologies.orient.core.metadata.security.OSecurityUser;
 import com.orientechnologies.orient.core.query.OQuery;
 import com.orientechnologies.orient.core.record.ORecord;
+import com.orientechnologies.orient.core.record.ORecordAbstract;
 import com.orientechnologies.orient.core.record.ORecordInternal;
 import com.orientechnologies.orient.core.record.ORecordVersionHelper;
 import com.orientechnologies.orient.core.record.impl.ODocument;
@@ -397,7 +398,7 @@ public abstract class ODatabasePojoAbstract<T extends Object> extends ODatabaseW
       checkOpeness();
 
       try {
-        if (iRecord.getRecord().getInternalStatus() == ORecordElement.STATUS.NOT_LOADED)
+        if (((ORecordAbstract)iRecord.getRecord()).getInternalStatus() == ORecordElement.STATUS.NOT_LOADED)
           record = (ODocument) record.load();
 
         pojo = newInstance(record.getClassName());
