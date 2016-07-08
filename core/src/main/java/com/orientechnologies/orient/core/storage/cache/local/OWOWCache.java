@@ -1737,7 +1737,11 @@ public class OWOWCache extends OAbstractWriteCache implements OWriteCache, OCach
       if (statistic != null)
         statistic.startFuzzyCheckpointTimer();
       try {
-        OLogSequenceNumber minLsn = findMinLsn(writeAheadLog.getFlushedLsn(), writeCachePages);
+        final OLogSequenceNumber flushedLsn = writeAheadLog.getFlushedLsn();
+        if (flushedLsn == null)
+          return;
+
+        OLogSequenceNumber minLsn = findMinLsn(flushedLsn, writeCachePages);
         OLogManager.instance().debug(this, "Start fuzzy checkpoint flushed LSN is %s", minLsn);
         try {
           writeAheadLog.logFuzzyCheckPointStart(minLsn);
