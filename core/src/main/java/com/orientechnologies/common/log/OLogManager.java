@@ -98,6 +98,12 @@ public class OLogManager {
 
   public void log(final Object iRequester, final Level iLevel, String iMessage, final Throwable iException,
       final Object... iAdditionalArgs) {
+
+    if (iMessage != null)
+      System.out.println(String.format(iMessage, iAdditionalArgs));
+    if (true)
+      return;
+
     if (iMessage != null) {
       try {
         final ODatabaseDocumentInternal db = ODatabaseRecordThreadLocal.INSTANCE != null
@@ -199,6 +205,9 @@ public class OLogManager {
   }
 
   public boolean isLevelEnabled(final Level level) {
+    if (true)
+      return true;
+
     if (level.equals(Level.FINER) || level.equals(Level.FINE) || level.equals(Level.FINEST))
       return debug;
     else if (level.equals(Level.INFO))
@@ -211,7 +220,7 @@ public class OLogManager {
   }
 
   public boolean isDebugEnabled() {
-    return debug;
+    return true;
   }
 
   public void setDebugEnabled(boolean debug) {
@@ -219,7 +228,7 @@ public class OLogManager {
   }
 
   public boolean isInfoEnabled() {
-    return info;
+    return true;
   }
 
   public void setInfoEnabled(boolean info) {
@@ -227,7 +236,7 @@ public class OLogManager {
   }
 
   public boolean isWarnEnabled() {
-    return warn;
+    return true;
   }
 
   public void setWarnEnabled(boolean warn) {
@@ -235,7 +244,7 @@ public class OLogManager {
   }
 
   public boolean isErrorEnabled() {
-    return error;
+    return true;
   }
 
   public void setErrorEnabled(boolean error) {
